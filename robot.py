@@ -139,42 +139,28 @@ def run_mine(robot:Robot):
     
     #drive to brush
     robot.wiper.run_target(120, -90)
-    robot.drive(800)
-
+    robot.drive(770)
+    robot.drive(-280)
+    
     #drive to mine
-    robot.turn_right(90)
+    robot.arc_right(300, 90)
     robot.wiper.run_target(120, -110)
-    robot.drive(470)
+    robot.drive(160)
 
     #release mine
     robot.wiper.run_target(120, -45)
     wait(1000)
     robot.wiper.run_target(120, 0)
-    
-    #drive to map
-    robot.drive(-400)
-    robot.turn_right(45)
-    robot.party.run_target(120, -90)
-    
-    #push #1
-    robot.drive(-150)
-    robot.party.run_target(120, -60)
-    robot.turn_left(15)
-    robot.party.run_target(240, 30) #throw
-    
-    #reverse and push #2
-    robot.arc_right(150, 30)
-    robot.party.run_target(120, -110)
-    robot.drive(-50)
-    
-    #brush and home
-    # robot.wiper.run_target(120, -90)
-    # robot.arc_left(150, 45)
-    # robot.drive(10)
 
+    #drive to flag position
+    robot.drive(-310)
+    robot.turn_left(90)
+    robot.drive(-100)
+    
     #return to 0 position
     wait(1000)
     robot.party.run_target(120, 0)
+    robot.wiper.run_target(120, 0)
 
 def dance():    
     robot.party.run_target(120, 90)
@@ -223,8 +209,10 @@ def run_crane(robot:Robot):
 
 
 def run_test(robot:Robot):
-    robot.turn_left(15)
-
+    robot.drive(800)
+    robot.party.run_target(120, -45)
+    robot.drive(-800)
+    
 if __name__=="__main__":
     robot = Robot()
     
