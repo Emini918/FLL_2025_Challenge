@@ -93,24 +93,25 @@ def run_mine(robot:Robot):
     
     #drive to brush
     robot.wiper.run_target(120, -90)
-    robot.drive(770)
+    robot.drive(800)
 
     #drive to mine
-    robot.arc_right(200, 90)
-    robot.wiper.run_target(120, -100)
-    robot.drive(300)
+    robot.turn_right(90)
+    robot.wiper.run_target(120, -110)
+    robot.drive(470)
+
     #release mine
-    robot.wiper.run_target(120, -60)
-    wait(500)
+    robot.wiper.run_target(120, -45)
+    wait(1000)
     robot.wiper.run_target(120, 0)
     
     #drive to map
-    robot.drive(-60)
+    #robot.drive(-60)
     
 if __name__=="__main__":
     robot = Robot()
     
-    robot.show_menu("F")    
+    robot.show_menu("M")    
     #robot.show_menu("B")
 
     
