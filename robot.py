@@ -249,5 +249,8 @@ if __name__=="__main__":
     
     robot.show_menu("F")    
     robot.show_menu("C")
+    robot.show_menu("S")    
+    robot.show_menu("2")
+    robot.show_menu("M")
 
     
