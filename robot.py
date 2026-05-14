@@ -73,25 +73,51 @@ class Robot:
         
 
 def do_silo(robot:Robot):
-    pass
+    for _ in range(4): 
+        robot.wiper.run_target(600, -105, then=Stop.COAST)
+        robot.wiper.run_target(600, 0)
+        wait(500)
+    
 
 def run_forge(robot:Robot):
+
+    #drive to forge
     robot.drive(600)
+
+    #solve forge and inhabitants
     robot.arc_left(200, 30)
     robot.wiper.run_angle(120, 90)
     robot.arc_left(160, 33)
     robot.wiper.run_target(120, 95)
     robot.arc_left(200, 25)
     robot.wiper.run_target(120, 0)
+
     robot.drive(-500)
     robot.drive(30)
+    #grab stuff
     wait(2000)
-    robot.drive(-200)
-    robot.arc_right(56, 60)
-    #robot.arc_left(200, 90)
 
+    #align at border
+    robot.drive(-200)
+
+    #do silo
+    robot.drive(345)
     do_silo(robot)
-    #robot.drive(-600)
+    robot.drive(-300)
+
+    #rotate to grindstone
+    robot.arc_right(70, 70)
+    robot.drive(30)
+    robot.party.run_target(120, 90)
+    robot.arc_right(70, 15)
+    robot.party.run_target(120, 0)
+    
+    
+    #drive home
+    robot.turn_left(10)
+    robot.drive(-150)
+    robot.turn_right(10)
+    robot.drive(-1500)
 
 
 def run_mine(robot:Robot):
@@ -116,7 +142,7 @@ def run_mine(robot:Robot):
 if __name__=="__main__":
     robot = Robot()
     
-    robot.show_menu("M")    
+    robot.show_menu("F")    
     #robot.show_menu("B")
 
     
