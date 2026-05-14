@@ -8,16 +8,20 @@ from pybricks.parameters import Button, Stop
 from pybricks.tools import multitask, run_task
 from pybricks.tools import hub_menu
 
-AXLE_DIST = 110
-WHEEL_DIAMETER = 88
+#AXLE_DIST = 110
+#WHEEL_DIAMETER = 88
+
+AXLE_DIST = 112
+WHEEL_DIAMETER = 56
 
 class Robot:
     def __init__(self):
         self.hub = PrimeHub()
         self.hub.system.set_stop_button(Button.BLUETOOTH)
+        self.hub.imu.up(True)
 
         left_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
-        right_motor = Motor(Port.B)
+        right_motor = Motor(Port.C)
 
         #arm_motor = Motor(Port.E)
         #arm_motor.run_target(-120, 0)
@@ -44,7 +48,13 @@ class Robot:
     def turn_right(self, angle):
         self.drive_base.turn(angle)
 
-    RUNS = ["A", "B", "C"]
+    def arc_left(self, radius, angle):
+        self.drive_base.arc(radius=-radius, angle=angle)
+
+    def arc_right(self, radius, angle):
+        self.drive_base.turn(radius=radius, angle=angle)
+
+    RUNS = ["F", "B", "C"]
     def show_menu(self, next_run):
         ordered_runs = self.RUNS
         ordered_runs.remove(next_run)
@@ -52,22 +62,29 @@ class Robot:
         
         selection = hub_menu(*ordered_runs)
 
-        if selection == "A":
-            run1(self)
+        if selection == "F":
+            run_forge(self)
         elif selection == "B":
-            run1(self)
+            pass
         
 
+def do_silo(robot:Robot):
+    pass
 
-def run1(robot:Robot):
-    robot.drive(200)
-    robot.turn_left(90)
-    robot.drive(200)
-    
+def run_forge(robot:Robot):
+    robot.drive(600)
+    #robot.arm_1.run_angle(90)
+    robot.arc_left(200, 90)
+    robot.drive(-300)
+
+    #robot.arm_1.run_target(0)
+    do_silo(robot)
+    robot.drive(-600)
+
 if __name__=="__main__":
     robot = Robot()
     
-    robot.show_menu("A")
-    robot.show_menu("B")
+    robot.show_menu("F")    
+    #robot.show_menu("B")
 
     
