@@ -25,6 +25,9 @@ class Robot:
 
         self.wiper = Motor(Port.E)
         self.wiper.run_target(-120, 0)
+
+        self.party = Motor(Port.B)
+        self.party.run_target(-120, 0)
                             
         self.drive_base = DriveBase(
             left_motor, 
@@ -52,9 +55,9 @@ class Robot:
         self.drive_base.arc(radius=-radius, angle=angle)
 
     def arc_right(self, radius, angle):
-        self.drive_base.turn(radius=radius, angle=angle)
+        self.drive_base.arc(radius=radius, angle=angle)
 
-    RUNS = ["F", "B", "C"]
+    RUNS = ["F", "M", "C"]
     def show_menu(self, next_run):
         ordered_runs = self.RUNS
         ordered_runs.remove(next_run)
@@ -65,8 +68,8 @@ class Robot:
 
         if selection == "F":
             run_forge(self)
-        elif selection == "B":
-            pass
+        elif selection == "M":
+            run_mine(self)
         
 
 def do_silo(robot:Robot):
@@ -83,6 +86,25 @@ def run_forge(robot:Robot):
     do_silo(robot)
     robot.drive(-600)
 
+
+def run_mine(robot:Robot):
+    
+    #drive to brush
+    robot.wiper.run_target(120, -90)
+    robot.drive(770)
+
+    #drive to mine
+    robot.arc_right(200, 90)
+    robot.wiper.run_target(120, -100)
+    robot.drive(300)
+    #release mine
+    robot.wiper.run_target(120, -60)
+    wait(500)
+    robot.wiper.run_target(120, 0)
+    
+    #drive to map
+    robot.drive(-60)
+    
 if __name__=="__main__":
     robot = Robot()
     
