@@ -106,7 +106,23 @@ def run_mine(robot:Robot):
     robot.wiper.run_target(120, 0)
     
     #drive to map
-    #robot.drive(-60)
+    robot.drive(-400)
+    robot.turn_right(45)
+    robot.party.run_target(120, -90)
+    wait(1000)
+    robot.drive(-150)
+    robot.party.run_target(120, -15) # lift arm
+    wait(1000)
+    robot.arc_right(150, 15)
+    robot.party.run_target(120, -90)
+    wait(1000)
+    robot.drive(-50)
+    wait(1000)
+    wait(1000)
+    robot.party.run_target(120, 0)
+    # robot.arc_left(400, 45)
+    # robot.drive(-0)
+
     
 if __name__=="__main__":
     robot = Robot()
