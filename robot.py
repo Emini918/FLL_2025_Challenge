@@ -109,20 +109,37 @@ def run_mine(robot:Robot):
     robot.drive(-400)
     robot.turn_right(45)
     robot.party.run_target(120, -90)
-    wait(1000)
+    
+    #push #1
     robot.drive(-150)
-    robot.party.run_target(120, -15) # lift arm
-    wait(1000)
-    robot.arc_right(150, 15)
-    robot.party.run_target(120, -90)
-    wait(1000)
+    robot.party.run_target(120, -60)
+    robot.turn_left(15)
+    robot.party.run_target(240, 30) #throw
+    
+    #reverse and push #2
+    robot.arc_right(150, 30)
+    robot.party.run_target(120, -110)
     robot.drive(-50)
-    wait(1000)
+    
+    #brush and home
+    # robot.wiper.run_target(120, -90)
+    # robot.arc_left(150, 45)
+    # robot.drive(10)
+
+    #return to 0 position
     wait(1000)
     robot.party.run_target(120, 0)
-    # robot.arc_left(400, 45)
-    # robot.drive(-0)
 
+def dance():    
+    robot.party.run_target(120, 90)
+    robot.party.run_target(120, 0)
+    robot.party.run_target(120, 90)
+    robot.party.run_target(120, 0)
+    robot.party.run_target(120, 90)
+    robot.party.run_target(120, 0)
+    robot.party.run_target(120, 90)
+    robot.party.run_target(120, 0)
+    wait(1000)
     
 if __name__=="__main__":
     robot = Robot()
