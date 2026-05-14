@@ -76,17 +76,22 @@ def do_silo(robot:Robot):
     pass
 
 def run_forge(robot:Robot):
-    robot.drive(610)
+    robot.drive(600)
     robot.arc_left(200, 30)
     robot.wiper.run_angle(120, 90)
-    robot.arc_left(160, 31)
+    robot.arc_left(160, 33)
     robot.wiper.run_target(120, 95)
     robot.arc_left(200, 25)
     robot.wiper.run_target(120, 0)
-    robot.drive(-300)
+    robot.drive(-500)
+    robot.drive(30)
+    wait(2000)
+    robot.drive(-200)
+    robot.arc_right(56, 60)
+    #robot.arc_left(200, 90)
 
     do_silo(robot)
-    robot.drive(-600)
+    #robot.drive(-600)
 
 
 def run_mine(robot:Robot):
