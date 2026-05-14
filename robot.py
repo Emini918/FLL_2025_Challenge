@@ -73,10 +73,12 @@ def do_silo(robot:Robot):
     pass
 
 def run_forge(robot:Robot):
-    robot.drive(600)
+    robot.drive(610)
     robot.arc_left(200, 30)
     robot.wiper.run_angle(120, 90)
-    robot.arc_left(200, 60)
+    robot.arc_left(160, 31)
+    robot.wiper.run_target(120, 95)
+    robot.arc_left(200, 25)
     robot.wiper.run_target(120, 0)
     robot.drive(-300)
 
