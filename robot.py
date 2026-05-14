@@ -39,6 +39,9 @@ class Robot:
 
         self.runs = []
 
+        #sensor
+        self.sensor = ColorSensor(Port.D)
+
     def reset_drivebase(self): 
         self.drive_base.settings(400, 500, 300, 500)
 
@@ -57,7 +60,15 @@ class Robot:
     def arc_right(self, radius, angle):
         self.drive_base.arc(radius=radius, angle=angle)
 
-    RUNS = ["F", "M", "C"]
+    def drive_to_line(self, speed):
+        self.drive_base.drive(speed, 0)
+        while self.sensor.hsv().v > 30:
+            #color = sensor.hsv()
+            wait(5)
+        self.drive_base.stop()
+
+
+    RUNS = ["F", "M", "C", "T"]
     def show_menu(self, next_run):
         ordered_runs = self.RUNS
         ordered_runs.remove(next_run)
@@ -70,6 +81,10 @@ class Robot:
             run_forge(self)
         elif selection == "M":
             run_mine(self)
+        elif selection == "C":
+            run_crane(self)
+        elif selection == "T":
+            run_test(self)
         
 
 def do_silo(robot:Robot):
@@ -172,10 +187,48 @@ def dance():
     robot.party.run_target(120, 0)
     wait(1000)
     
+
+def run_crane(robot:Robot):
+    robot.party.run_target(120, 0)
+
+    #drive to black line
+    robot.arc_left(260, 90)
+    robot.drive_to_line(400)
+
+    #lift statue
+    robot.drive(230)
+    robot.turn_right(45)
+    robot.drive(120)
+
+    robot.party.run_target(120, -90)
+
+    #drive to crane
+    
+    robot.drive(-30)
+    robot.arc_right(200, -45)
+    robot.drive(-80)
+    robot.turn_right(90)
+    robot.drive(-180)
+    robot.turn_left(15)
+
+    #lift crane
+    robot.wiper.run_angle(300, 720)
+    robot.wiper.reset_angle(None)
+    
+    #drive to other home zone
+    robot.turn_right(15)
+    robot.drive(50)
+    robot.arc_left(100, 90)
+    robot.drive(1000)
+
+
+def run_test(robot:Robot):
+    robot.turn_left(15)
+
 if __name__=="__main__":
     robot = Robot()
     
-    robot.show_menu("F")    
+    robot.show_menu("C")    
     #robot.show_menu("B")
 
     
