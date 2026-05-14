@@ -23,8 +23,8 @@ class Robot:
         left_motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
         right_motor = Motor(Port.C)
 
-        #arm_motor = Motor(Port.E)
-        #arm_motor.run_target(-120, 0)
+        self.wiper = Motor(Port.E)
+        self.wiper.run_target(-120, 0)
                             
         self.drive_base = DriveBase(
             left_motor, 
@@ -61,6 +61,7 @@ class Robot:
         ordered_runs.insert(0, next_run)
         
         selection = hub_menu(*ordered_runs)
+        wait(500)
 
         if selection == "F":
             run_forge(self)
@@ -73,11 +74,12 @@ def do_silo(robot:Robot):
 
 def run_forge(robot:Robot):
     robot.drive(600)
-    #robot.arm_1.run_angle(90)
-    robot.arc_left(200, 90)
+    robot.arc_left(200, 30)
+    robot.wiper.run_angle(120, 90)
+    robot.arc_left(200, 60)
+    robot.wiper.run_target(120, 0)
     robot.drive(-300)
 
-    #robot.arm_1.run_target(0)
     do_silo(robot)
     robot.drive(-600)
 
